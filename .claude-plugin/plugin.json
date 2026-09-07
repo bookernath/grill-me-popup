@@ -1,0 +1,10 @@
+{
+  "name": "grill-me-popup",
+  "version": "1.1.0",
+  "description": "Answer a whole round of grill-me questions in a browser popup — accept, choose, write or defer each one, mostly from the keyboard.",
+  "author": { "name": "Nathan Booker", "url": "https://github.com/bookernath" },
+  "repository": "https://github.com/bookernath/grill-me-popup",
+  "license": "MIT",
+  "keywords": ["grilling", "grill-me", "interview", "mcp", "popup", "planning"],
+  "mcpServers": "./.mcp.json"
+}

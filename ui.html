@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="en" data-skin="__GRILL_DEFAULT_SKIN__" data-scheme-pref="__GRILL_DEFAULT_SCHEME__">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Grilling</title>
+<style>
+/* ============================================================ fonts */
+/* latex — New Computer Modern, Book weight (darker on screen than CMU) */
+@font-face{font-family:"NewCM";src:url(/vendor/fonts/NewCM10-Book.otf) format("opentype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"NewCM";src:url(/vendor/fonts/NewCM10-Bold.otf) format("opentype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"NewCM";src:url(/vendor/fonts/NewCM10-BookItalic.otf) format("opentype");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"NewCM";src:url(/vendor/fonts/NewCM10-BoldItalic.otf) format("opentype");font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:"NewCM Mono";src:url(/vendor/fonts/NewCMMono10-Book.otf) format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"CMU Typewriter";src:url(/vendor/fonts/cmuntt.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"CMU Typewriter";src:url(/vendor/fonts/cmuntb.woff) format("woff");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"CMU Typewriter";src:url(/vendor/fonts/cmunit.woff) format("woff");font-weight:400;font-style:italic;font-display:swap}
+/* textbook — Source Serif 4 / Source Sans 3 */
+@font-face{font-family:"Source Serif 4";src:url(/vendor/fonts/source-serif-4-400-normal.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(/vendor/fonts/source-serif-4-700-normal.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(/vendor/fonts/source-serif-4-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(/vendor/fonts/source-serif-4-700-italic.woff2) format("woff2");font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url(/vendor/fonts/source-sans-3-400-normal.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url(/vendor/fonts/source-sans-3-600-normal.woff2) format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url(/vendor/fonts/source-sans-3-700-normal.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url(/vendor/fonts/source-sans-3-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+/* dossier — Courier Prime, Special Elite for stamps */
+@font-face{font-family:"Courier Prime";src:url(/vendor/fonts/courier-prime-400-normal.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Courier Prime";src:url(/vendor/fonts/courier-prime-700-normal.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Courier Prime";src:url(/vendor/fonts/courier-prime-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Special Elite";src:url(/vendor/fonts/special-elite-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+/* mono — JetBrains Mono */
+@font-face{font-family:"JetBrains Mono";src:url(/vendor/fonts/jetbrains-mono-400-normal.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(/vendor/fonts/jetbrains-mono-700-normal.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(/vendor/fonts/jetbrains-mono-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(/vendor/fonts/jetbrains-mono-700-italic.woff2) format("woff2");font-weight:700;font-style:italic;font-display:swap}
+
+/* ============================================================ tokens */
+/* Every skin defines the same token set for light, then overrides for dark.
+   JS always stamps data-scheme="light|dark" on <html>, so CSS never needs the media query. */
+:root{
+  --measure:40rem; --radius:0;
+  --serif:"NewCM","Latin Modern Roman","Computer Modern",Charter,Georgia,serif;
+  --mono:"NewCM Mono","CMU Typewriter",ui-monospace,Menlo,Consolas,monospace;
+  --sans:ui-sans-serif,system-ui,sans-serif;
+  --body:var(--serif); --head:var(--serif); --label:var(--serif); --code:var(--mono); --kbd:var(--mono);
+  --fs:17px; --lh:1.5; --fs-head:1.22rem;
+  --paper:#ffffff; --ink:#000000; --ink-2:#333333; --ink-3:#666666; --ink-4:#9a9a9a;
+  --rule:#000000; --rule-2:#bbbbbb; --rule-3:#e2e2e2; --wash:#f4f4f4;
+  --accent:#000000; --accent-ink:#ffffff; --accent-wash:#f4f4f4;
+  --btn-bg:var(--paper); --btn-ink:var(--ink); --btn-on-bg:var(--ink); --btn-on-ink:var(--paper);
+  --send-bg:var(--ink); --send-ink:var(--paper);
+}
+[data-scheme="dark"]{
+  --paper:#000000; --ink:#f2f2f2; --ink-2:#cfcfcf; --ink-3:#a0a0a0; --ink-4:#6e6e6e;
+  --rule:#f2f2f2; --rule-2:#4a4a4a; --rule-3:#262626; --wash:#0f0f0f;
+  --accent:#f2f2f2; --accent-ink:#000000; --accent-wash:#0f0f0f;
+}
+
+/* ---- textbook: sans headings over serif body, one blue accent, tinted boxes, off-white paper */
+[data-skin="textbook"]{
+  --serif:"Source Serif 4",Charter,Georgia,serif; --sans:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --body:var(--serif); --head:var(--sans); --label:var(--sans); --kbd:var(--sans);
+  --fs:17px; --lh:1.55; --fs-head:1.3rem; --radius:3px;
+  --paper:#fbfaf6; --ink:#1c2430; --ink-2:#3d4652; --ink-3:#6b7480; --ink-4:#9aa3ad;
+  --rule:#1c2430; --rule-2:#c9cdd2; --rule-3:#e6e8ea; --wash:#f1f2ee;
+  --accent:#1d5ba6; --accent-ink:#ffffff; --accent-wash:#e7eff9;
+  --btn-bg:var(--paper); --btn-ink:var(--accent); --btn-on-bg:var(--accent); --btn-on-ink:#fff;
+  --send-bg:var(--accent); --send-ink:#fff;
+}
+[data-skin="textbook"][data-scheme="dark"]{
+  --paper:#10161f; --ink:#e9ecf1; --ink-2:#c3c9d2; --ink-3:#8f98a5; --ink-4:#626b78;
+  --rule:#e9ecf1; --rule-2:#3a4451; --rule-3:#1e2630; --wash:#161d27;
+  --accent:#7db3ff; --accent-ink:#0b1320; --accent-wash:#172230;
+  --btn-on-ink:#0b1320; --send-ink:#0b1320;
+}
+
+/* ---- dossier: typewriter on aged paper, red stamps, banners */
+[data-skin="dossier"]{
+  --mono:"Courier Prime","Courier New",Courier,monospace;
+  --body:var(--mono); --head:var(--mono); --label:var(--mono); --code:var(--mono); --kbd:var(--mono);
+  --fs:15.5px; --lh:1.6; --fs-head:1.05rem; --radius:0;
+  --paper:#f2ead7; --ink:#1e1c18; --ink-2:#3d3931; --ink-3:#6b6558; --ink-4:#9b9382;
+  --rule:#1e1c18; --rule-2:#a89f8a; --rule-3:#dcd3bd; --wash:#e9e0c9;
+  --accent:#9e2a22; --accent-ink:#f2ead7; --accent-wash:#eadfc6;
+  --btn-bg:transparent; --btn-ink:var(--ink); --btn-on-bg:var(--ink); --btn-on-ink:var(--paper);
+  --send-bg:var(--ink); --send-ink:var(--paper);
+}
+[data-skin="dossier"][data-scheme="dark"]{
+  --paper:#0c0b09; --ink:#e6dcc2; --ink-2:#c9bfa5; --ink-3:#958c74; --ink-4:#5f594a;
+  --rule:#e6dcc2; --rule-2:#4a4436; --rule-3:#221f18; --wash:#15130e;
+  --accent:#e2564a; --accent-ink:#0c0b09; --accent-wash:#1c1510;
+}
+
+/* ---- mono: JetBrains Mono, terminal dark by default, Claude coral accent */
+[data-skin="mono"]{
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --body:var(--mono); --head:var(--mono); --label:var(--mono); --code:var(--mono); --kbd:var(--mono);
+  --fs:14px; --lh:1.6; --fs-head:1rem; --radius:2px; --measure:46rem;
+  --paper:#fafaf8; --ink:#1c1c1a; --ink-2:#44443f; --ink-3:#77776f; --ink-4:#a3a39a;
+  --rule:#1c1c1a; --rule-2:#cfcfc8; --rule-3:#e6e6e0; --wash:#f0f0ec;
+  --accent:#c9613f; --accent-ink:#ffffff; --accent-wash:#fbeee7;
+  --btn-bg:transparent; --btn-ink:var(--ink); --btn-on-bg:var(--accent); --btn-on-ink:#fff;
+  --send-bg:var(--accent); --send-ink:#fff;
+}
+[data-skin="mono"][data-scheme="dark"]{
+  --paper:#0f0f0f; --ink:#e8e6e1; --ink-2:#bdbab2; --ink-3:#8a877f; --ink-4:#5c5a54;
+  --rule:#e8e6e1; --rule-2:#3a3934; --rule-3:#232320; --wash:#171716;
+  --accent:#d97757; --accent-ink:#0f0f0f; --accent-wash:#241a15;
+  --btn-on-ink:#0f0f0f; --send-ink:#0f0f0f;
+}
+
+/* ============================================================ base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:var(--fs);line-height:var(--lh);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-kerning:normal;
+}
+::selection{background:var(--ink);color:var(--paper)}
+code,kbd,pre,samp{font-family:var(--code);font-size:.92em}
+kbd{font-family:var(--kbd)}
+.hidden{display:none!important}
+a{color:inherit;text-decoration:underline;text-underline-offset:.15em;text-decoration-thickness:.5px}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+select{font:inherit;color:var(--ink-2);background:var(--paper);border:.5px solid var(--rule-2);border-radius:var(--radius);padding:.1em .3em;font-size:.78rem;font-family:var(--label)}
+select:hover{color:var(--ink);border-color:var(--rule)}
+button:focus-visible,[tabindex]:focus-visible,textarea:focus-visible,a:focus-visible,select:focus-visible{outline:1.5px solid var(--accent);outline-offset:2px}
+
+/* ============================================================ running head */
+.head{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:.5px solid var(--rule)}
+.head .in{max-width:64rem;margin:0 auto;padding:.55rem 2rem;display:flex;align-items:center;gap:1.2rem;font-size:.82rem;font-family:var(--label)}
+.head .brand{font-variant-caps:small-caps;letter-spacing:.12em;font-weight:700;white-space:nowrap}
+.head .topic{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:italic;color:var(--ink-2);font-family:var(--body)}
+.head .count{font-family:var(--code);color:var(--ink-2);white-space:nowrap}
+.head .ctl{display:flex;gap:.4rem;align-items:center}
+.head .help{font-family:var(--code);color:var(--ink-3);border:.5px solid var(--rule-2);padding:0 .45em;line-height:1.5;border-radius:var(--radius)}
+.head .help:hover{color:var(--ink);border-color:var(--rule)}
+.meter{height:2px;background:var(--rule-3);position:relative}
+.meter>i{position:absolute;inset:0 auto 0 0;width:0;background:var(--accent);transition:width .3s cubic-bezier(.2,.8,.2,1)}
+
+/* ============================================================ page grid */
+.page{max-width:64rem;margin:0 auto;padding:2.4rem 2rem 14rem;display:grid;grid-template-columns:13.5rem minmax(0,1fr);gap:3.2rem}
+@media (max-width:900px){.page{grid-template-columns:1fr}.toc{display:none}}
+article{max-width:var(--measure);width:100%}
+
+/* title block */
+.titleblock{text-align:center;margin:0 0 2.4rem;position:relative}
+.titleblock .kicker{display:none}
+.titleblock h1{font-family:var(--head);font-size:1.75rem;font-weight:400;line-height:1.25;margin:0 0 .5rem;letter-spacing:-.005em}
+.titleblock .byline{font-size:.95rem;color:var(--ink-2);margin:0;font-family:var(--label)}
+.titleblock .byline i{font-style:italic}
+.abstract{margin:1.8rem auto 0;max-width:34rem;font-size:.93rem;line-height:1.45;text-align:justify;hyphens:auto}
+.abstract .label{display:block;text-align:center;font-variant-caps:small-caps;letter-spacing:.1em;font-weight:700;margin-bottom:.4rem;font-family:var(--label)}
+.abstract .prose{text-align:justify}
+.stamp{display:none}
+
+/* ============================================================ contents rail */
+.toc{position:sticky;top:3.6rem;align-self:start;max-height:calc(100vh - 12rem);overflow:auto;font-size:.84rem;padding-right:.2rem;font-family:var(--label)}
+.toc h4{margin:0 0 .7rem;font-variant-caps:small-caps;letter-spacing:.12em;font-weight:700;font-size:.8rem}
+.toc a{display:flex;align-items:baseline;gap:.35rem;padding:.16rem .3rem .16rem .2rem;text-decoration:none;color:var(--ink-2);border-left:1.5px solid transparent;margin-left:-.4rem;padding-left:.4rem}
+.toc a .n{font-family:var(--code);color:var(--ink-3);flex:none;min-width:1.4rem;font-size:.78rem}
+.toc a .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.toc a .dots{flex:1;min-width:.6rem;border-bottom:1px dotted var(--rule-2);transform:translateY(-.3em)}
+.toc a .m{font-family:var(--code);font-size:.78rem;flex:none;min-width:1.1em;text-align:right;color:var(--ink-3)}
+.toc a:hover{color:var(--ink)}
+.toc a.active{border-left-color:var(--accent);color:var(--ink)}
+.toc a.done .m{color:var(--accent)}
+.toc a.done .t{color:var(--ink-3)}
+
+/* ============================================================ questions as sections */
+.q{position:relative;margin:0 0 2.9rem;padding-top:.2rem;scroll-margin-top:4.2rem;border-left:1.5px solid transparent;margin-left:-1.2rem;padding-left:1.2rem;transition:border-color .12s}
+.q.cursor{border-left-color:var(--accent)}
+.q .sec{display:flex;align-items:baseline;gap:.7rem;margin:0 0 .55rem;font-family:var(--head)}
+.q .sec .num{font-weight:700;font-size:var(--fs-head);flex:none}
+.q .sec h2{font-size:var(--fs-head);font-weight:700;margin:0;line-height:1.25;flex:1;min-width:0}
+.q .sec .qid{font-family:var(--code);font-size:.78rem;color:var(--ink-3);flex:none}
+.q .sec .state{font-variant-caps:small-caps;letter-spacing:.08em;font-size:.8rem;color:var(--ink-3);flex:none;white-space:nowrap;font-family:var(--label)}
+.q .sec .state.done{color:var(--accent)}
+.q .sec .state.deferred{color:var(--ink-2);font-style:italic}
+
+/* markdown body */
+.prose{text-align:left;hyphens:auto;overflow-wrap:break-word}
+.prose>*:first-child{margin-top:0}.prose>*:last-child{margin-bottom:0}
+.prose p{margin:.55em 0}
+.prose ul,.prose ol{margin:.5em 0;padding-left:1.6em}
+.prose li{margin:.2em 0}
+.prose li>p{margin:.2em 0}
+.prose h1,.prose h2,.prose h3,.prose h4{font-size:1.02em;margin:.9em 0 .3em;font-weight:700;font-family:var(--head)}
+.prose h3,.prose h4{font-style:italic;font-weight:400}
+.prose strong{font-weight:700}
+.prose em{font-style:italic}
+.prose pre{border:.5px solid var(--rule-2);padding:.6em .8em;overflow:auto;margin:.8em 0;text-align:left;hyphens:none;line-height:1.35;white-space:pre;border-radius:var(--radius);background:var(--wash)}
+.prose pre code{white-space:pre;font-size:.86em}
+.prose blockquote{margin:.8em 0;padding:0 0 0 1.2em;border-left:.5px solid var(--rule-2);font-style:italic;color:var(--ink-2)}
+.prose blockquote em{font-style:normal}
+.prose hr{border:0;border-top:.5px solid var(--rule);width:35%;margin:1.2em auto}
+.prose table{border-collapse:collapse;margin:.9em auto;font-size:.92em;text-align:left;hyphens:none;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.prose thead th{border-bottom:.5px solid var(--rule);font-weight:700;padding:.3em .8em;font-family:var(--head)}
+.prose td{padding:.28em .8em;vertical-align:top}
+.prose img{max-width:100%}
+.prose .tablewrap{overflow-x:auto}
+.prose figure.fig{margin:1em 0;text-align:center}
+.prose figure.fig pre.mermaid{border:0;padding:.4em 0;text-align:center;overflow:visible;background:none;margin:0}
+.prose pre.mermaid svg{max-width:100%;height:auto}
+.prose pre.mermaid.err{border:.5px solid var(--rule-2);text-align:left;white-space:pre-wrap}
+.prose figcaption{display:none;font-size:.86em;color:var(--ink-2);margin-top:.3em;text-align:left;font-family:var(--label)}
+.prose figcaption b{color:var(--ink)}
+
+/* recommendation — theorem style by default */
+.rec{margin:.9rem 0 0;font-style:italic;text-align:justify;hyphens:auto}
+.rec .lbl{font-style:normal;font-weight:700;font-family:var(--head)}
+.rec .lbl::after{content:"\00a0"}
+.rec .prose{display:inline;text-align:justify}
+.rec .prose p{display:inline;margin:0}
+.rec .prose p+p::before{content:" ";white-space:pre-wrap}
+.rec .prose em{font-style:normal}
+.rec .prose ul,.rec .prose ol{display:block;text-align:left}
+.rec .prose pre{font-style:normal;display:block}
+
+/* options — enumerate */
+.opts{margin:.9rem 0 0;padding:0;list-style:none}
+.opts .optlbl{display:none}
+.opt{display:grid;grid-template-columns:1.1rem 1.2rem 2.2rem minmax(0,1fr);gap:.5rem;align-items:baseline;padding:.25rem .4rem .25rem 0;cursor:pointer;border-radius:var(--radius)}
+.opt:hover .label{text-decoration:underline;text-underline-offset:.18em;text-decoration-thickness:.5px}
+.opt .hint{font-family:var(--code);font-size:.78rem;color:var(--ink-4);white-space:nowrap;text-align:right}
+.opt .box{font-family:var(--code);font-size:1rem;line-height:1;transform:translateY(.06em);color:var(--ink-2)}
+.opt.sel .box{color:var(--accent)}
+.opt .k{color:var(--ink-2);font-family:var(--label)}
+.opt.sel .label{font-weight:700}
+.opt .detail{display:block;color:var(--ink-2);font-size:.93em;font-weight:400;margin-top:.05em}
+.opt .star{font-style:italic;color:var(--ink-2);font-size:.9em;margin-left:.4em;font-family:var(--body)}
+
+/* answer */
+.answer{margin:.95rem 0 0}
+.answer .cap{font-variant-caps:small-caps;letter-spacing:.08em;font-size:.8rem;color:var(--ink-3);margin-bottom:.25rem;display:flex;justify-content:space-between;font-family:var(--label)}
+.answer .cap .hint{font-family:var(--code);font-variant-caps:normal;letter-spacing:0;color:var(--ink-4)}
+textarea{display:block;width:100%;min-height:2.6rem;resize:none;border:.5px solid var(--rule-2);background:var(--paper);color:var(--ink);padding:.45rem .65rem;font:inherit;font-size:.98rem;line-height:1.45;outline:none;border-radius:var(--radius)}
+textarea:focus{border-color:var(--accent)}
+textarea::placeholder{color:var(--ink-4);font-style:italic}
+
+/* actions */
+.acts{margin:.7rem 0 0;display:flex;gap:.55rem;flex-wrap:wrap;align-items:center;font-family:var(--label)}
+.btn{white-space:nowrap;border:.5px solid var(--rule);padding:.22rem .7rem;font-size:.9rem;line-height:1.4;display:inline-flex;gap:.55rem;align-items:baseline;background:var(--btn-bg);color:var(--btn-ink);transition:background .1s,color .1s;border-radius:var(--radius)}
+.btn:hover{background:var(--wash)}
+.btn.on{background:var(--btn-on-bg);color:var(--btn-on-ink);border-color:var(--btn-on-bg)}
+.btn.quiet{border-color:var(--rule-2);color:var(--ink-2)}
+.btn.quiet:hover{border-color:var(--rule);color:var(--ink)}
+.btn kbd{font-size:.72rem;color:inherit;opacity:.65}
+
+/* ============================================================ foot */
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--paper);border-top:.5px solid var(--rule)}
+.foot .in{max-width:64rem;margin:0 auto;padding:.7rem 2rem .8rem;display:grid;gap:.6rem}
+.foot .note{display:flex;align-items:baseline;gap:.8rem}
+.foot .note .cap{font-variant-caps:small-caps;letter-spacing:.08em;font-size:.8rem;color:var(--ink-3);white-space:nowrap;font-family:var(--label)}
+.foot .note textarea{min-height:2rem;font-size:.92rem;padding:.3rem .55rem}
+.foot .row{display:flex;align-items:center;gap:1rem;font-family:var(--label)}
+.foot .legend{font-family:var(--code);font-size:.74rem;color:var(--ink-3);display:flex;gap:1rem;flex-wrap:wrap}
+.foot .legend b{font-weight:400;color:var(--ink)}
+.foot .spacer{flex:1}
+.foot .remaining{font-size:.86rem;font-style:italic;color:var(--ink-2);white-space:nowrap}
+.foot .send{border:1px solid var(--send-bg);padding:.3rem .95rem;font-size:.95rem;background:var(--send-bg);color:var(--send-ink);border-radius:var(--radius)}
+.foot .send:hover{filter:brightness(1.12)}
+.foot .send.warn{background:var(--paper);color:var(--ink);border-color:var(--rule)}
+.foot .send kbd{opacity:.75;font-size:.75rem}
+@media (max-width:700px){.foot .legend{display:none}}
+
+/* ============================================================ centred states */
+.centre{position:fixed;inset:0;display:grid;place-items:center;padding:3rem;text-align:center;background:var(--paper);z-index:40}
+.centre .card{max-width:32rem}
+.centre .orn{font-size:1.5rem;margin-bottom:.9rem;letter-spacing:.2em}
+.centre h2{font-size:1.25rem;font-weight:400;font-style:italic;margin:0 0 .5rem;font-family:var(--head)}
+.centre p{color:var(--ink-2);margin:0;font-size:.95rem}
+.centre .qed{font-size:2rem;line-height:1;margin:0 0 1rem}
+.centre .tiny{font-family:var(--code);font-size:.78rem;color:var(--ink-4);margin-top:1.4rem}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+/* help sheet */
+.sheet{position:fixed;inset:0;z-index:60;background:color-mix(in srgb,var(--paper) 82%,transparent);display:grid;place-items:center;padding:2rem}
+.sheet .card{background:var(--paper);border:1px solid var(--rule);padding:1.6rem 2rem 1.4rem;max-width:36rem;width:100%;max-height:90vh;overflow:auto;border-radius:var(--radius)}
+.sheet h3{margin:0 0 .9rem;font-variant-caps:small-caps;letter-spacing:.12em;font-weight:700;font-size:.95rem;font-family:var(--label)}
+.sheet table{width:100%;border-collapse:collapse;font-size:.92rem;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.sheet th{text-align:left;font-variant-caps:small-caps;letter-spacing:.08em;font-weight:700;border-bottom:.5px solid var(--rule);padding:.3em .4em;font-size:.85rem;font-family:var(--label)}
+.sheet td{padding:.24em .4em;vertical-align:top}
+.sheet td:first-child{font-family:var(--code);white-space:nowrap;width:9rem;font-size:.85rem}
+.sheet .sub{padding-top:.7em;font-style:italic;color:var(--ink-3)}
+.sheet .close{margin-top:1rem;font-size:.85rem;color:var(--ink-3);font-style:italic}
+
+/* ============================================================ SKIN: textbook */
+[data-skin="textbook"] .head .brand{font-variant-caps:normal;letter-spacing:.02em;text-transform:uppercase;font-size:.78rem;color:var(--accent)}
+[data-skin="textbook"] .titleblock{text-align:left;border-bottom:2px solid var(--accent);padding-bottom:1.2rem}
+[data-skin="textbook"] .titleblock .kicker{display:block;font-family:var(--head);font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;margin-bottom:.35rem}
+[data-skin="textbook"] .titleblock h1{font-weight:700;font-size:2rem;letter-spacing:-.01em}
+[data-skin="textbook"] .titleblock .byline{font-size:.9rem;color:var(--ink-3)}
+[data-skin="textbook"] .abstract{max-width:none;margin:1.4rem 0 0;text-align:left;background:var(--accent-wash);border-left:4px solid var(--accent);padding:.8rem 1.1rem;font-size:.95rem;border-radius:var(--radius)}
+[data-skin="textbook"] .abstract .label{text-align:left;font-variant-caps:normal;text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;color:var(--accent)}
+[data-skin="textbook"] .abstract .prose{text-align:left}
+[data-skin="textbook"] .toc h4{font-variant-caps:normal;text-transform:uppercase;letter-spacing:.12em;color:var(--accent)}
+[data-skin="textbook"] .toc a .n{color:var(--accent);font-family:var(--head);font-weight:600}
+[data-skin="textbook"] .q .sec .num{color:var(--accent)}
+[data-skin="textbook"] .q .sec .state{font-variant-caps:normal;text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;font-weight:600}
+[data-skin="textbook"] .rec{font-style:normal;text-align:left;background:var(--accent-wash);border-left:4px solid var(--accent);padding:.75rem 1rem .8rem;margin-top:1rem;border-radius:var(--radius)}
+[data-skin="textbook"] .rec .lbl{display:block;text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;color:var(--accent);margin-bottom:.25rem}
+[data-skin="textbook"] .rec .lbl::after{content:""}
+[data-skin="textbook"] .rec .prose{display:block;text-align:left}
+[data-skin="textbook"] .rec .prose p{display:block;margin:.4em 0}
+[data-skin="textbook"] .rec .prose em{font-style:italic}
+[data-skin="textbook"] .opts{border-top:.5px solid var(--rule-2);padding-top:.6rem}
+[data-skin="textbook"] .opts .optlbl{display:block;font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;color:var(--accent);margin:0 0 .3rem}
+[data-skin="textbook"] .opt .k{font-family:var(--head);font-weight:600}
+[data-skin="textbook"] .prose figcaption{display:block}
+[data-skin="textbook"] .prose figure.fig{border-bottom:.5px solid var(--rule-2);padding-bottom:.6em}
+[data-skin="textbook"] .prose thead th{background:var(--accent-wash);border-bottom:2px solid var(--accent)}
+[data-skin="textbook"] .prose table{border-top:0}
+[data-skin="textbook"] .btn{border-color:var(--accent)}
+[data-skin="textbook"] .btn.quiet{border-color:var(--rule-2);color:var(--ink-2)}
+[data-skin="textbook"] .answer .cap,[data-skin="textbook"] .foot .note .cap{font-variant-caps:normal;text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;font-weight:600}
+[data-skin="textbook"] .centre h2{font-style:normal;font-weight:700}
+[data-skin="textbook"] .centre .qed{color:var(--accent)}
+[data-skin="textbook"] .sheet h3,[data-skin="textbook"] .sheet th{font-variant-caps:normal;text-transform:uppercase;letter-spacing:.1em}
+
+/* ============================================================ SKIN: dossier */
+[data-skin="dossier"] body,[data-skin="dossier"] .head,[data-skin="dossier"] .foot,[data-skin="dossier"] .centre,[data-skin="dossier"] .sheet .card{
+  background-color:var(--paper);
+  background-image:repeating-linear-gradient(0deg,transparent 0 3px,color-mix(in srgb,var(--ink) 2%,transparent) 3px 4px);
+}
+[data-skin="dossier"] .head{border-bottom:2px solid var(--ink)}
+[data-skin="dossier"] .head::before{content:attr(data-banner);display:block;text-align:center;font-weight:700;letter-spacing:.3em;font-size:.72rem;padding:.25rem 0 .15rem;border-bottom:.5px solid var(--ink);text-transform:uppercase}
+[data-skin="dossier"] .foot::after{content:attr(data-banner);display:block;text-align:center;font-weight:700;letter-spacing:.3em;font-size:.72rem;padding:.15rem 0 .3rem;border-top:.5px solid var(--ink);text-transform:uppercase}
+[data-skin="dossier"] .head .brand{font-variant-caps:normal;text-transform:uppercase;letter-spacing:.2em}
+[data-skin="dossier"] .head .topic{font-style:normal;text-transform:uppercase;font-size:.76rem;letter-spacing:.04em}
+[data-skin="dossier"] .titleblock{text-align:left;border:1px solid var(--ink);padding:1rem 1.2rem .9rem;margin:1.2rem 0 2.2rem}
+[data-skin="dossier"] .titleblock h1{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin:0;line-height:1.5}
+[data-skin="dossier"] .titleblock h1::before{content:"SUBJECT:  ";font-weight:700}
+[data-skin="dossier"] .titleblock .byline{font-size:.95rem;color:var(--ink);white-space:pre-line;margin-top:.15rem;font-family:var(--mono)}
+[data-skin="dossier"] .titleblock .byline i{font-style:normal}
+[data-skin="dossier"] .abstract{max-width:none;margin:1rem 0 0;text-align:left;font-size:.95rem;border-top:.5px solid var(--ink);padding-top:.7rem}
+[data-skin="dossier"] .abstract .label{text-align:left;font-variant-caps:normal;text-transform:uppercase;letter-spacing:.2em;text-decoration:underline;font-weight:700;font-size:.82rem}
+[data-skin="dossier"] .abstract .prose{text-align:left}
+[data-skin="dossier"] .stamp{display:block;position:absolute;right:-.6rem;top:-2.1rem;transform:rotate(-6deg);font-family:"Special Elite",var(--mono);color:var(--accent);border:3px double var(--accent);padding:.3rem .8rem .25rem;font-size:1.1rem;letter-spacing:.18em;text-transform:uppercase;opacity:.85;mix-blend-mode:multiply;pointer-events:none;line-height:1.15;text-align:center;background:var(--paper)}
+[data-skin="dossier"][data-scheme="dark"] .stamp{mix-blend-mode:normal}
+[data-skin="dossier"] .stamp small{display:block;font-size:.52em;letter-spacing:.22em;margin-top:.15em}
+[data-skin="dossier"] .toc h4{font-variant-caps:normal;text-transform:uppercase;letter-spacing:.2em;text-decoration:underline}
+[data-skin="dossier"] .toc a .t{text-transform:uppercase;font-size:.78rem}
+[data-skin="dossier"] .q .sec{border-bottom:.5px solid var(--rule-2);padding-bottom:.35rem}
+[data-skin="dossier"] .q .sec .num::before{content:"ITEM "}
+[data-skin="dossier"] .q .sec .num::after{content:"."}
+[data-skin="dossier"] .q .sec h2{text-transform:uppercase;letter-spacing:.03em}
+[data-skin="dossier"] .q .sec .state{font-variant-caps:normal;text-transform:uppercase;letter-spacing:.15em;font-weight:700}
+[data-skin="dossier"] .q .sec .state.done{color:var(--accent)}
+[data-skin="dossier"] .prose{text-align:left}
+[data-skin="dossier"] .prose strong{text-decoration:underline}
+[data-skin="dossier"] .prose pre{background:transparent;border-color:var(--ink)}
+[data-skin="dossier"] .rec{font-style:normal;text-align:left;margin-top:1rem}
+[data-skin="dossier"] .rec .lbl{text-transform:uppercase;letter-spacing:.15em;text-decoration:underline}
+[data-skin="dossier"] .rec .lbl::after{content:"  "}
+[data-skin="dossier"] .rec .prose em{font-style:italic}
+[data-skin="dossier"] .opts .optlbl{display:block;text-transform:uppercase;letter-spacing:.15em;font-weight:700;font-size:.82rem;margin:0 0 .3rem;text-decoration:underline}
+[data-skin="dossier"] .opt .box{color:var(--ink)}
+[data-skin="dossier"] .opt .k{text-transform:uppercase}
+[data-skin="dossier"] .opt.sel .label{background:var(--ink);color:var(--paper);padding:0 .3em;font-weight:400;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+[data-skin="dossier"] .opt.sel .label .star,[data-skin="dossier"] .opt.sel .label .detail{background:var(--paper);color:var(--ink-2);padding:0 .3em 0 0;margin-left:-.3em}
+[data-skin="dossier"] .opt.sel .label .star{margin-left:.4em;padding-left:.3em}
+[data-skin="dossier"] .opt .star{font-style:normal;text-transform:uppercase;font-size:.72em;letter-spacing:.15em;color:var(--accent)}
+[data-skin="dossier"] .answer .cap,[data-skin="dossier"] .foot .note .cap{font-variant-caps:normal;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:var(--ink-2)}
+[data-skin="dossier"] textarea{border:.5px solid var(--ink);background:transparent}
+[data-skin="dossier"] textarea::placeholder{font-style:normal;text-transform:uppercase;font-size:.85em;letter-spacing:.05em}
+[data-skin="dossier"] .btn{text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;border-color:var(--ink)}
+[data-skin="dossier"] .foot .send{text-transform:uppercase;letter-spacing:.12rem;font-size:.85rem;font-weight:700}
+[data-skin="dossier"] .foot .remaining{font-style:normal;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem}
+[data-skin="dossier"] .foot .legend{font-size:.66rem;gap:.7rem}
+[data-skin="dossier"] .foot .in{padding-bottom:.5rem}
+[data-skin="dossier"] .centre h2{font-style:normal;text-transform:uppercase;letter-spacing:.2em;font-weight:700;font-size:1rem}
+[data-skin="dossier"] .centre .orn{font-family:var(--mono)}
+[data-skin="dossier"] .centre .qed{font-family:"Special Elite",var(--mono);font-size:1.3rem;color:var(--accent);border:3px double var(--accent);display:inline-block;padding:.2rem .9rem;letter-spacing:.2em;transform:rotate(-5deg)}
+[data-skin="dossier"] .sheet h3,[data-skin="dossier"] .sheet th{font-variant-caps:normal;text-transform:uppercase;letter-spacing:.15em}
+[data-skin="dossier"] select{border-color:var(--ink);background:transparent;text-transform:uppercase;font-size:.72rem;letter-spacing:.08em}
+
+/* ============================================================ SKIN: mono */
+[data-skin="mono"] .head{border-bottom:1px solid var(--rule-3)}
+[data-skin="mono"] .head .brand{font-variant-caps:normal;letter-spacing:0;color:var(--accent)}
+[data-skin="mono"] .head .brand::before{content:"✻ "}
+[data-skin="mono"] .head .topic{font-style:normal;color:var(--ink-3)}
+[data-skin="mono"] .titleblock{text-align:left;margin-bottom:2rem}
+[data-skin="mono"] .titleblock h1{font-size:1.25rem;font-weight:700;letter-spacing:0}
+[data-skin="mono"] .titleblock h1::before{content:"# ";color:var(--accent)}
+[data-skin="mono"] .titleblock .byline{color:var(--ink-3);font-size:.9rem}
+[data-skin="mono"] .titleblock .byline::before{content:"$ ";color:var(--ink-4)}
+[data-skin="mono"] .titleblock .byline i{font-style:normal}
+[data-skin="mono"] .abstract{max-width:none;margin:1.1rem 0 0;text-align:left;font-size:.9rem;color:var(--ink-2);border-left:2px solid var(--rule-2);padding-left:.9rem}
+[data-skin="mono"] .abstract .label{text-align:left;font-variant-caps:normal;letter-spacing:0;color:var(--ink-3);font-weight:400}
+[data-skin="mono"] .abstract .label::before{content:"// "}
+[data-skin="mono"] .abstract .prose{text-align:left}
+[data-skin="mono"] .toc h4{font-variant-caps:normal;letter-spacing:0;color:var(--ink-3);font-weight:400}
+[data-skin="mono"] .toc h4::before{content:"── "}[data-skin="mono"] .toc h4::after{content:" ──"}
+[data-skin="mono"] .toc a{border-left:0;padding-left:.2rem}
+[data-skin="mono"] .toc a .n{color:var(--ink-4)}
+[data-skin="mono"] .toc a.active{color:var(--accent)}
+[data-skin="mono"] .toc a.active .n{color:var(--accent)}
+[data-skin="mono"] .toc a .dots{border-bottom:0}
+[data-skin="mono"] .q{border-left:0;margin-left:0;padding-left:0}
+[data-skin="mono"] .q .sec .num{color:var(--ink-3)}
+[data-skin="mono"] .q .sec .num::before{content:"⏺ "}
+[data-skin="mono"] .q.cursor .sec .num{color:var(--accent)}
+[data-skin="mono"] .q .sec .qid{color:var(--ink-4)}
+[data-skin="mono"] .q .sec .state{font-variant-caps:normal;letter-spacing:0;font-size:.78rem}
+[data-skin="mono"] .q .sec .state::before{content:"["}[data-skin="mono"] .q .sec .state::after{content:"]"}
+[data-skin="mono"] .q .sec .state.done{color:var(--accent)}
+[data-skin="mono"] .q .sec .state.deferred{font-style:normal;color:var(--ink-3)}
+[data-skin="mono"] .q>.body,[data-skin="mono"] .rec,[data-skin="mono"] .opts,[data-skin="mono"] .answer,[data-skin="mono"] .acts{margin-left:1.4rem}
+[data-skin="mono"] .q>.body{position:relative}
+[data-skin="mono"] .q>.body::before{content:"⎿";position:absolute;left:-1.4rem;top:0;color:var(--ink-4)}
+[data-skin="mono"] .prose{text-align:left}
+[data-skin="mono"] .prose code{color:var(--accent)}
+[data-skin="mono"] .prose pre{background:var(--wash);border-color:var(--rule-3)}
+[data-skin="mono"] .prose pre code{color:var(--ink)}
+[data-skin="mono"] .prose h1,[data-skin="mono"] .prose h2,[data-skin="mono"] .prose h3{font-size:1em}
+[data-skin="mono"] .prose h1::before,[data-skin="mono"] .prose h2::before,[data-skin="mono"] .prose h3::before{content:"## ";color:var(--ink-4)}
+[data-skin="mono"] .prose ul{list-style:none;padding-left:1.3em}
+[data-skin="mono"] .prose ul li::before{content:"- ";color:var(--ink-4);margin-left:-1.1em;display:inline-block;width:1.1em}
+[data-skin="mono"] .prose blockquote{border-left:2px solid var(--rule-2);font-style:normal}
+[data-skin="mono"] .prose table{border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2)}
+[data-skin="mono"] .prose thead th{border-bottom:1px solid var(--rule-2)}
+[data-skin="mono"] .rec{font-style:normal;text-align:left;margin-top:.9rem;border-left:2px solid var(--accent);padding-left:.8rem}
+[data-skin="mono"] .rec .lbl{color:var(--accent);font-weight:400}
+[data-skin="mono"] .rec .lbl::before{content:"➜ "}
+[data-skin="mono"] .rec .lbl::after{content:": "}
+[data-skin="mono"] .rec .prose em{font-style:italic}
+[data-skin="mono"] .opt{grid-template-columns:1.6rem 1.2rem 2rem minmax(0,1fr)}
+[data-skin="mono"] .opt .hint::before{content:"["}[data-skin="mono"] .opt .hint::after{content:"]"}
+[data-skin="mono"] .opt .hint{color:var(--ink-3)}
+[data-skin="mono"] .opt .box{color:var(--ink-3)}
+[data-skin="mono"] .opt.sel .box{color:var(--accent)}
+[data-skin="mono"] .opt.sel .label{color:var(--accent);font-weight:400}
+[data-skin="mono"] .opt.sel .label .detail{color:var(--ink-2)}
+[data-skin="mono"] .opt .star{font-style:normal;color:var(--accent);font-size:.8em}
+[data-skin="mono"] .opt .star::before{content:"← "}
+[data-skin="mono"] .answer .cap,[data-skin="mono"] .foot .note .cap{font-variant-caps:normal;letter-spacing:0;font-size:.78rem}
+[data-skin="mono"] .answer{position:relative}
+[data-skin="mono"] textarea{background:var(--wash);border-color:var(--rule-3);font-size:.92rem}
+[data-skin="mono"] .answer textarea{padding-left:1.5rem}
+[data-skin="mono"] .answer::after{content:"❯";position:absolute;left:.6rem;bottom:.55rem;color:var(--accent);pointer-events:none;font-size:.9rem;line-height:1.45}
+[data-skin="mono"] textarea::placeholder{font-style:normal}
+[data-skin="mono"] .btn{border-color:var(--rule-2);font-size:.82rem}
+[data-skin="mono"] .btn::before{content:"[ ";color:var(--ink-4)}[data-skin="mono"] .btn::after{content:" ]";color:var(--ink-4)}
+[data-skin="mono"] .btn.on::before,[data-skin="mono"] .btn.on::after{color:inherit}
+[data-skin="mono"] .btn kbd{opacity:.5}
+[data-skin="mono"] .foot{border-top:1px solid var(--rule-3)}
+[data-skin="mono"] .foot .remaining{font-style:normal;color:var(--ink-3);font-size:.8rem}
+[data-skin="mono"] .foot .legend b{color:var(--accent)}
+[data-skin="mono"] .foot .send{font-weight:700;font-size:.88rem}
+[data-skin="mono"] .centre h2{font-style:normal;font-weight:700}
+[data-skin="mono"] .centre h2::before{content:"✻ ";color:var(--accent)}
+[data-skin="mono"] .centre .orn{color:var(--accent)}
+[data-skin="mono"] .centre .qed{font-size:1.2rem;color:var(--accent);font-family:var(--mono)}
+[data-skin="mono"] .centre .qed::before{content:"$ exit 0"}
+[data-skin="mono"] .sheet h3,[data-skin="mono"] .sheet th{font-variant-caps:normal;letter-spacing:0}
+[data-skin="mono"] .sheet .card{border-color:var(--rule-2)}
+[data-skin="mono"] .head .help{border-color:var(--rule-2)}
+[data-skin="mono"] select{border-color:var(--rule-2);background:var(--wash)}
+</style>
+</head>
+<body>
+
+<div id="waiting" class="centre">
+  <div class="card">
+    <div class="orn pulse" id="waitOrn">&#8258;</div>
+    <h2 id="waitTitle">Awaiting the next round.</h2>
+    <p id="waitmsg">Keep this window open — questions arrive here as the frontier moves.</p>
+  </div>
+</div>
+
+<div id="sent" class="centre hidden">
+  <div class="card">
+    <div class="orn" id="sentOrn">&#8258;</div>
+    <h2 id="sentTitle">Answers sent.</h2>
+    <p id="sentMsg">Claude is recomputing the frontier.</p>
+  </div>
+</div>
+
+<div id="bye" class="centre hidden">
+  <div class="card">
+    <div class="qed" id="byeGlyph">&#8718;</div>
+    <h2 id="byeTitle">Grilling complete.</h2>
+    <p id="byeMsg"></p>
+    <p class="tiny" id="byeTiny">closing this window…</p>
+  </div>
+</div>
+
+<div id="help" class="sheet hidden" role="dialog" aria-label="Keyboard reference">
+  <div class="card">
+    <h3>Keyboard</h3>
+    <table>
+      <thead><tr><th>Keys</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>j / k &nbsp;·&nbsp; &darr; / &uarr;</td><td>next / previous question</td></tr>
+        <tr><td>n / p</td><td>next / previous <i>unanswered</i> question</td></tr>
+        <tr><td>Home / End</td><td>first / last question</td></tr>
+        <tr><td>Enter</td><td>take the default — the recommended option, or the recommendation — and advance</td></tr>
+        <tr><td>a</td><td>accept the recommendation (toggle)</td></tr>
+        <tr><td>1 &hellip; 9</td><td>choose option (a)&hellip;(i)</td></tr>
+        <tr><td>d</td><td>defer to a later round (toggle)</td></tr>
+        <tr><td>e &nbsp;·&nbsp; i &nbsp;·&nbsp; /</td><td>write an answer</td></tr>
+        <tr><td>&#8679; A</td><td>accept every remaining recommendation</td></tr>
+        <tr><td>&#8984; &#9166; &nbsp;·&nbsp; Ctrl &#9166;</td><td>send the round</td></tr>
+        <tr><td>t &nbsp;·&nbsp; &#8679; T</td><td>next / previous theme (LaTeX, textbook, dossier, mono)</td></tr>
+        <tr><td>?</td><td>this sheet</td></tr>
+        <tr><td colspan="2" class="sub">while writing</td></tr>
+        <tr><td>Enter</td><td>finish and move to the next unanswered question</td></tr>
+        <tr><td>&#8679; Enter</td><td>new line</td></tr>
+        <tr><td>Esc</td><td>stop writing (back to navigation)</td></tr>
+        <tr><td>Ctrl j / Ctrl k</td><td>move to the next / previous answer box</td></tr>
+      </tbody>
+    </table>
+    <p class="close">Choosing, accepting or deferring moves you on to the next open question. Press Esc or ? to close.</p>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <div class="head" data-banner="Confidential // Grilling // Eyes only">
+    <div class="in">
+      <span class="brand" id="brand">Grilling</span>
+      <span class="topic" id="headTopic"></span>
+      <span class="count" id="count">0 / 0</span>
+      <span class="ctl">
+        <select id="skinSel" title="Theme (t)" aria-label="Theme">
+          <option value="latex">LaTeX</option>
+          <option value="textbook">Textbook</option>
+          <option value="dossier">Dossier</option>
+          <option value="mono">Mono</option>
+        </select>
+        <select id="schemeSel" title="Light or dark" aria-label="Colour scheme">
+          <option value="auto">Auto</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+        <button class="help" id="helpBtn" title="Keyboard reference (?)">?</button>
+      </span>
+    </div>
+    <div class="meter"><i id="meter"></i></div>
+  </div>
+
+  <div class="page">
+    <nav class="toc" aria-label="Contents">
+      <h4 id="tocLabel">Contents</h4>
+      <div id="toc"></div>
+    </nav>
+    <article>
+      <div class="titleblock">
+        <div class="stamp" id="stamp">Declassified<small>for grilling purposes</small></div>
+        <div class="kicker" id="kicker"></div>
+        <h1 id="title"></h1>
+        <p class="byline" id="byline"></p>
+        <div class="abstract hidden" id="abstract"><span class="label" id="abstractLabel">Abstract</span><div class="prose" id="abstractBody"></div></div>
+      </div>
+      <div id="qs"></div>
+    </article>
+  </div>
+
+  <div class="foot" data-banner="Confidential // Grilling // Eyes only">
+    <div class="in">
+      <div class="note">
+        <span class="cap" id="noteCap">Note to Claude</span>
+        <textarea id="note" rows="1" placeholder="anything that applies to the whole round (optional)"></textarea>
+      </div>
+      <div class="row">
+        <span class="legend">
+          <span><b>j</b>/<b>k</b> move</span><span><b>&#9166;</b> default</span><span><b>a</b> accept</span>
+          <span><b>1</b>&ndash;<b>9</b> choose</span><span><b>e</b> write</span><span><b>d</b> defer</span><span><b>t</b> theme</span><span><b>?</b> help</span>
+        </span>
+        <span class="spacer"></span>
+        <span class="remaining" id="remaining"></span>
+        <button class="btn quiet" id="acceptAll" title="Accept every remaining recommendation (⇧A)">accept all remaining</button>
+        <button class="send" id="send">Send answers <kbd>&#8984;&#9166;</kbd></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/vendor/marked.min.js"></script>
+<script src="/vendor/purify.min.js"></script>
+<script>
+"use strict";
+const TOKEN = new URLSearchParams(location.search).get("t") || "";
+const $  = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => [...(r || document).querySelectorAll(s)];
+const el = (t, c, h) => { const n = document.createElement(t); if (c) n.className = c; if (h != null) n.innerHTML = h; return n; };
+const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const H = document.documentElement;
+
+/* ------------------------------------------------------------ skins */
+const SKIN_ORDER = ["latex", "textbook", "dossier", "mono"];
+const SKINS = {
+  latex: {
+    brand: "Grilling", contents: "Contents", abstract: "Abstract", rec: "Recommendation.", optlbl: "",
+    noteCap: "Note to Claude", send: 'Send answers <kbd>&#8984;&#9166;</kbd>', acceptAll: "accept all remaining",
+    accept: "accept recommendation", accepted: "&#10003; accepted", defer: "defer", deferred: "&#10003; deferred",
+    st: { open: "open", accepted: "accepted", acceptedNote: "accepted, with note", chose: (k) => "chose " + k, choseNote: (k) => "chose " + k + ", with note", answered: "answered", deferred: "deferred" },
+    remaining: (n) => n ? n + " open" : "all answered — send when ready",
+    kicker: () => "", title: (r) => r.topic ? inline(r.topic) : "Grilling",
+    byline: (r, n, date) => `Round ${r.round ?? 1} &nbsp;·&nbsp; ${n} question${n === 1 ? "" : "s"} &nbsp;·&nbsp; <i>${esc(date)}</i>`,
+    secnum: (r, i) => String(i + 1), fig: () => "",
+    waitOrn: "&#8258;", waitTitle: "Awaiting the next round.", waitMsg: "Keep this window open — questions arrive here as the frontier moves.",
+    sentOrn: "&#8258;", sentTitle: "Answers sent.", sentMsg: "Claude is recomputing the frontier.",
+    byeGlyph: "&#8718;", byeTitle: "Grilling complete.", closing: "closing this window…", closeHint: "you can close this window",
+    answerCap: (hasOpts) => hasOpts ? "Your answer, or a note on your pick" : "Your answer",
+    placeholder: (hasRec) => hasRec ? "agree, disagree, or add the nuance that is missing…" : "…",
+    enumKey: (k) => "(" + k.toLowerCase() + ")",
+  },
+  textbook: {
+    brand: "Grilling", contents: "Chapter contents", abstract: "Learning objectives", rec: "Key idea", optlbl: "Checkpoint",
+    noteCap: "Note to Claude", send: 'Send answers <kbd>&#8984;&#9166;</kbd>', acceptAll: "accept all remaining",
+    accept: "accept key idea", accepted: "&#10003; accepted", defer: "defer", deferred: "&#10003; deferred",
+    st: { open: "open", accepted: "accepted", acceptedNote: "accepted + note", chose: (k) => "chose " + k, choseNote: (k) => "chose " + k + " + note", answered: "answered", deferred: "deferred" },
+    remaining: (n) => n ? n + " open" : "all answered — send when ready",
+    kicker: (r) => `Chapter ${r.round ?? 1}`, title: (r) => r.topic ? inline(r.topic) : "Grilling",
+    byline: (r, n, date) => `${n} section${n === 1 ? "" : "s"} &nbsp;·&nbsp; ${esc(date)}`,
+    secnum: (r, i) => `${r.round ?? 1}.${i + 1}`, fig: (r, i) => `Figure ${r.round ?? 1}.${i}`,
+    waitOrn: "&#8226;", waitTitle: "Awaiting the next chapter.", waitMsg: "Keep this window open — the next set of sections arrives here.",
+    sentOrn: "&#10003;", sentTitle: "Answers sent.", sentMsg: "Claude is recomputing the frontier.",
+    byeGlyph: "&#10003;", byeTitle: "End of chapter.", closing: "closing this window…", closeHint: "you can close this window",
+    answerCap: (hasOpts) => hasOpts ? "Your answer, or a note on your pick" : "Your answer",
+    placeholder: (hasRec) => hasRec ? "agree, disagree, or add the nuance that is missing…" : "…",
+    enumKey: (k) => "(" + k.toLowerCase() + ")",
+  },
+  dossier: {
+    brand: "Grilling", contents: "Table of contents", abstract: "Summary", rec: "Assessment", optlbl: "Courses of action",
+    noteCap: "Remarks", send: 'Transmit <kbd>&#8984;&#9166;</kbd>', acceptAll: "concur all",
+    accept: "concur", accepted: "concurred", defer: "table", deferred: "tabled",
+    st: { open: "pending", accepted: "concur", acceptedNote: "concur w/ remarks", chose: (k) => "selected " + k, choseNote: (k) => "selected " + k + " w/ remarks", answered: "comment", deferred: "tabled" },
+    remaining: (n) => n ? n + " item" + (n === 1 ? "" : "s") + " pending" : "all items resolved",
+    kicker: () => "", title: (r) => r.topic ? inline(r.topic) : "Grilling session",
+    byline: (r, n, date) => `MEMORANDUM FOR:  The Author\nFROM:            Claude\nDATE:            ${esc(date)}\nROUND:           ${r.round ?? 1}     ITEMS: ${n}`,
+    secnum: (r, i) => String(i + 1), fig: (r, i) => `Exhibit ${i}`,
+    waitOrn: "&#8226; &#8226; &#8226;", waitTitle: "Awaiting further instructions", waitMsg: "Keep this window open. Additional items will be transmitted.",
+    sentOrn: "&#8226; &#8226; &#8226;", sentTitle: "Transmitted", sentMsg: "Claude is recomputing the frontier.",
+    byeGlyph: "File closed", byeTitle: "End of document", closing: "closing this window…", closeHint: "you may close this window",
+    answerCap: (hasOpts) => hasOpts ? "Remarks" : "Response",
+    placeholder: (hasRec) => hasRec ? "concur, non-concur, or add remarks" : "response",
+    enumKey: (k) => "(" + k.toUpperCase() + ")",
+  },
+  mono: {
+    brand: "grilling", contents: "contents", abstract: "context", rec: "recommendation", optlbl: "",
+    noteCap: "note", send: 'send <kbd>&#8984;&#9166;</kbd>', acceptAll: "accept all",
+    accept: "accept", accepted: "accepted", defer: "defer", deferred: "deferred",
+    st: { open: "open", accepted: "accepted", acceptedNote: "accepted +note", chose: (k) => "chose " + k, choseNote: (k) => "chose " + k + " +note", answered: "answered", deferred: "deferred" },
+    remaining: (n) => n ? n + " open" : "all answered · ⌘⏎ to send",
+    kicker: () => "", title: (r) => r.topic ? inline(r.topic) : "grilling",
+    byline: (r, n, date) => `grill --round ${r.round ?? 1} --questions ${n}`,
+    secnum: (r, i) => String(i + 1), fig: () => "",
+    waitOrn: "…", waitTitle: "waiting for the next round", waitMsg: "keep this window open — rounds are pushed here as the frontier moves",
+    sentOrn: "✓", sentTitle: "answers sent", sentMsg: "claude is recomputing the frontier",
+    byeGlyph: "", byeTitle: "grilling complete", closing: "closing this window…", closeHint: "you can close this window",
+    answerCap: (hasOpts) => hasOpts ? "answer / note on your pick" : "answer",
+    placeholder: (hasRec) => hasRec ? "agree, disagree, or add what's missing" : "…",
+    enumKey: (k) => "(" + k.toLowerCase() + ")",
+  },
+};
+let skin = SKINS.latex;
+const store = { get: (k) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
+
+function setSkin(name, { persist = true } = {}) {
+  if (!SKINS[name]) name = "latex";
+  H.dataset.skin = name; skin = SKINS[name];
+  $("#skinSel").value = name;
+  if (persist) store.set("grill:skin", name);
+  paintStatic();
+  if (round) render({ keepScroll: true });
+  else rethemeDiagrams();
+}
+function cycleSkin(d) { const i = SKIN_ORDER.indexOf(H.dataset.skin); setSkin(SKIN_ORDER[(i + d + SKIN_ORDER.length) % SKIN_ORDER.length]); }
+
+const mq = matchMedia("(prefers-color-scheme: dark)");
+function applyScheme(pref, { persist = true } = {}) {
+  if (!["auto", "light", "dark"].includes(pref)) pref = "auto";
+  H.dataset.schemePref = pref; $("#schemeSel").value = pref;
+  if (persist) store.set("grill:scheme", pref);
+  const was = H.dataset.scheme;
+  H.dataset.scheme = pref === "auto" ? (mq.matches ? "dark" : "light") : pref;
+  if (was && was !== H.dataset.scheme) rethemeDiagrams();
+}
+mq.addEventListener("change", () => applyScheme(H.dataset.schemePref, { persist: false }));
+
+/* static chrome strings that don't depend on a round */
+function paintStatic() {
+  $("#brand").textContent = skin.brand;
+  $("#tocLabel").textContent = skin.contents;
+  $("#abstractLabel").textContent = skin.abstract;
+  $("#noteCap").textContent = skin.noteCap;
+  $("#acceptAll").textContent = skin.acceptAll;
+  if (!$("#send").classList.contains("warn")) $("#send").innerHTML = skin.send;
+  $("#waitOrn").innerHTML = skin.waitOrn; $("#waitTitle").textContent = skin.waitTitle;
+  if (!$("#waitmsg").dataset.custom) $("#waitmsg").textContent = skin.waitMsg;
+  $("#sentOrn").innerHTML = skin.sentOrn; $("#sentTitle").textContent = skin.sentTitle; $("#sentMsg").textContent = skin.sentMsg;
+  $("#byeGlyph").innerHTML = skin.byeGlyph; $("#byeTitle").textContent = skin.byeTitle;
+}
+
+/* ------------------------------------------------------------ markdown */
+marked.use({
+  gfm: true, breaks: false,
+  renderer: {
+    code({ text, lang }) {
+      if ((lang || "").trim().toLowerCase() === "mermaid") return `<figure class="fig"><pre class="mermaid">${esc(text)}</pre><figcaption></figcaption></figure>`;
+      return `<pre><code${lang ? ` class="language-${esc(lang)}"` : ""}>${esc(text)}</code></pre>`;
+    },
+    table(token) {
+      const html = marked.Renderer.prototype.table.call(this, token);
+      return `<div class="tablewrap">${html}</div>`;
+    },
+    link({ href, text }) { return `<a href="${esc(href)}" target="_blank" rel="noreferrer">${text}</a>`; },
+  },
+});
+function md(src) { return src ? DOMPurify.sanitize(marked.parse(String(src)), { ADD_ATTR: ["target"] }) : ""; }
+function inline(src) { return src ? DOMPurify.sanitize(marked.parseInline(String(src))) : ""; }
+
+/* mermaid is 3.5 MB — load it only when a round actually contains a diagram */
+let mermaidReady = null;
+function loadMermaid() {
+  if (mermaidReady) return mermaidReady;
+  mermaidReady = new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "/vendor/mermaid.min.js";
+    s.onload = () => resolve(window.mermaid);
+    s.onerror = () => reject(new Error("mermaid failed to load"));
+    document.head.append(s);
+  });
+  return mermaidReady;
+}
+const cssVar = (n) => getComputedStyle(H).getPropertyValue(n).trim();
+async function renderDiagrams(root) {
+  const nodes = $$("pre.mermaid", root).filter((n) => !n.dataset.processed);
+  if (!nodes.length) return;
+  let mermaid;
+  try { mermaid = await loadMermaid(); }
+  catch (e) { nodes.forEach((n) => { n.classList.add("err"); }); return; }
+  const ink = cssVar("--ink"), paper = cssVar("--paper"), wash = cssVar("--wash"), ink3 = cssVar("--ink-3");
+  const font = cssVar("--body");
+  mermaid.initialize({
+    startOnLoad: false, securityLevel: "strict", theme: "base", fontFamily: font,
+    themeVariables: {
+      background: paper, primaryColor: paper, primaryTextColor: ink, primaryBorderColor: ink,
+      secondaryColor: wash, secondaryTextColor: ink, secondaryBorderColor: ink,
+      tertiaryColor: wash, tertiaryTextColor: ink, tertiaryBorderColor: ink3,
+      lineColor: ink, textColor: ink, mainBkg: paper, nodeBorder: ink, clusterBkg: paper, clusterBorder: ink3,
+      titleColor: ink, edgeLabelBackground: paper, actorBkg: paper, actorBorder: ink, actorTextColor: ink,
+      actorLineColor: ink3, signalColor: ink, signalTextColor: ink, labelBoxBkgColor: paper, labelBoxBorderColor: ink,
+      labelTextColor: ink, loopTextColor: ink, noteBkgColor: wash, noteBorderColor: ink, noteTextColor: ink,
+      activationBkgColor: wash, activationBorderColor: ink, sequenceNumberColor: paper,
+      fontSize: "15px",
+    },
+    flowchart: { htmlLabels: false, curve: "linear" },
+    sequence: { mirrorActors: false, actorMargin: 60 },
+  });
+  for (const n of nodes) {
+    n.dataset.processed = "1";
+    if (!n.dataset.src) n.dataset.src = n.textContent;
+    try {
+      const { svg } = await mermaid.render("mm" + Math.random().toString(36).slice(2, 8), n.dataset.src);
+      n.innerHTML = svg;
+    } catch (e) {
+      n.classList.add("err");
+      n.textContent = "(diagram failed to render)\n\n" + n.dataset.src;
+    }
+  }
+}
+function rethemeDiagrams() {
+  const nodes = $$("pre.mermaid[data-processed]");
+  if (!nodes.length) return;
+  nodes.forEach((n) => { delete n.dataset.processed; n.classList.remove("err"); n.textContent = n.dataset.src || ""; });
+  renderDiagrams(document);
+}
+function captionFigures() {
+  let i = 0;
+  $$("#qs figcaption, #abstract figcaption").forEach((c) => { i++; const t = skin.fig(round, i); c.innerHTML = t ? `<b>${esc(t)}.</b>` : ""; });
+}
+
+/* ------------------------------------------------------------ state */
+let round = null;       // {roundId, round, topic, context, questions:[...]}
+let state = new Map();  // id -> {accepted, choice:Set, text, deferred}
+let cursor = 0;
+let sending = false;
+
+const draftKey = () => "grill:" + (round ? round.roundId : "none");
+function saveDraft() {
+  if (!round) return;
+  const o = {};
+  for (const [id, s] of state) o[id] = { accepted: s.accepted, choice: [...s.choice], text: s.text, deferred: s.deferred };
+  store.set(draftKey(), JSON.stringify({ a: o, note: $("#note").value, at: Date.now() }));
+}
+function clearDrafts() {
+  try { Object.keys(localStorage).filter((k) => k.startsWith("grill:") && k !== "grill:skin" && k !== "grill:scheme").forEach((k) => localStorage.removeItem(k)); } catch {}
+}
+function loadDraft() {
+  try {
+    const d = JSON.parse(store.get(draftKey()) || "null"); if (!d) return;
+    if (d.at && Date.now() - d.at > 24 * 3600 * 1000) { localStorage.removeItem(draftKey()); return; }
+    for (const q of round.questions) {
+      const s = d.a && d.a[q.id]; if (!s) continue;
+      state.set(q.id, { accepted: !!s.accepted, choice: new Set(s.choice || []), text: s.text || "", deferred: !!s.deferred });
+    }
+    if (d.note) $("#note").value = d.note;
+  } catch {}
+}
+const S = (q) => state.get(q.id);
+const answered = (q) => { const s = S(q); return !!(s && (s.accepted || s.choice.size || (s.text || "").trim() || s.deferred)); };
+const optKey = (o, i) => o.key || String.fromCharCode(65 + i);
+
+/* ------------------------------------------------------------ render */
+function render({ keepScroll = false } = {}) {
+  const y = keepScroll ? scrollY : 0;
+  $("#waiting").classList.add("hidden"); $("#sent").classList.add("hidden"); $("#bye").classList.add("hidden");
+  $("#app").classList.remove("hidden");
+
+  const n = round.questions.length;
+  const date = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  $("#kicker").textContent = skin.kicker(round);
+  $("#title").innerHTML = skin.title(round);
+  $("#headTopic").textContent = round.topic || "";
+  $("#byline").innerHTML = skin.byline(round, n, date);
+  const ab = $("#abstract");
+  if (round.context) { ab.classList.remove("hidden"); $("#abstractBody").innerHTML = md(round.context); }
+  else ab.classList.add("hidden");
+
+  const qs = $("#qs"), toc = $("#toc");
+  qs.innerHTML = ""; toc.innerHTML = "";
+
+  round.questions.forEach((q, i) => {
+    if (!state.has(q.id)) state.set(q.id, { accepted: false, choice: new Set(), text: "", deferred: false });
+    const s = S(q);
+    const sec = el("section", "q"); sec.id = "q" + i; sec.dataset.i = i; sec.tabIndex = -1;
+    sec.setAttribute("aria-label", q.id + " " + q.title);
+
+    const head = el("div", "sec");
+    head.append(el("span", "num", skin.secnum(round, i)), el("h2", "", inline(q.title || "")), el("span", "qid", esc(q.id)), el("span", "state", skin.st.open));
+    sec.append(head);
+    if (q.body) sec.append(el("div", "prose body", md(q.body)));
+
+    if (q.recommendation) {
+      const r = el("div", "rec");
+      r.append(el("span", "lbl", esc(skin.rec)), el("div", "prose", md(q.recommendation)));
+      sec.append(r);
+    }
+
+    if (q.options && q.options.length) {
+      const ul = el("ul", "opts"); ul.setAttribute("role", q.multi ? "group" : "radiogroup");
+      if (skin.optlbl) ul.append(el("li", "optlbl", esc(skin.optlbl)));
+      q.options.forEach((o, oi) => {
+        const li = el("li", "opt"); li.setAttribute("role", q.multi ? "checkbox" : "radio"); li.tabIndex = -1;
+        const lab = el("span", "label", inline(o.label || ""));
+        if (o.recommended) lab.append(el("span", "star", "recommended"));
+        if (o.detail) lab.append(el("span", "detail", inline(o.detail)));
+        li.append(el("span", "hint", oi < 9 ? String(oi + 1) : ""), el("span", "box", "&#9633;"), el("span", "k", esc(skin.enumKey(optKey(o, oi)))), lab);
+        li.onclick = () => { cursor = i; toggle(q, optKey(o, oi), true); };
+        ul.append(li);
+      });
+      sec.append(ul);
+    }
+
+    const hasOpts = !!(q.options && q.options.length);
+    const ans = el("div", "answer");
+    const cap = el("div", "cap");
+    cap.append(el("span", "", esc(skin.answerCap(hasOpts))), el("span", "hint", "e to write · ⏎ done · ⇧⏎ newline"));
+    const ta = el("textarea"); ta.rows = 1;
+    ta.placeholder = skin.placeholder(!!q.recommendation);
+    ta.value = s.text || "";
+    ta.oninput = () => { s.text = ta.value; grow(ta); paint(); saveDraft(); };
+    ta.onfocus = () => { cursor = i; paintCursor(); };
+    ans.append(cap, ta); sec.append(ans);
+
+    const acts = el("div", "acts");
+    if (q.recommendation) {
+      const b = el("button", "btn accept", ""); b.type = "button";
+      b.onclick = () => { cursor = i; setAccepted(q, !s.accepted, true); };
+      acts.append(b);
+    }
+    const d = el("button", "btn quiet defer", ""); d.type = "button";
+    d.onclick = () => { cursor = i; setDeferred(q, !s.deferred, true); };
+    acts.append(d);
+    sec.append(acts);
+    sec.addEventListener("focusin", () => { if (cursor !== i) { cursor = i; paintCursor(); } });
+    qs.append(sec);
+
+    const a = el("a", ""); a.href = "#q" + i;
+    a.append(el("span", "n", skin.secnum(round, i)), el("span", "t", esc(q.title || q.id)), el("span", "dots", ""), el("span", "m", ""));
+    a.onclick = (e) => { e.preventDefault(); go(i); };
+    toc.append(a);
+  });
+
+  $("#note").oninput = () => { saveDraft(); grow($("#note")); };
+  if (!keepScroll) cursor = Math.max(0, round.questions.findIndex((q) => !answered(q)));
+  cursor = Math.min(cursor, round.questions.length - 1);
+  paint(); paintCursor();
+  $$("textarea").forEach(grow);
+  captionFigures();
+  renderDiagrams(qs); renderDiagrams($("#abstract"));
+  if (keepScroll) scrollTo(0, y);
+}
+function grow(ta) { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight + 2, 360) + "px"; }
+
+/* ------------------------------------------------------------ mutations (all auto-advance) */
+function advance() {
+  const n = round.questions.length;
+  for (let k = 1; k <= n; k++) { const j = (cursor + k) % n; if (!answered(round.questions[j])) { go(j); return; } }
+  paint(); paintCursor();
+}
+function setAccepted(q, on, adv) {
+  const s = S(q); s.accepted = on; if (on) { s.deferred = false; }
+  paint(); saveDraft(); if (on && adv) advance();
+}
+function setDeferred(q, on, adv) {
+  const s = S(q); s.deferred = on; if (on) { s.accepted = false; s.choice.clear(); }
+  paint(); saveDraft(); if (on && adv) advance();
+}
+function toggle(q, key, adv) {
+  const s = S(q);
+  if (q.multi) { s.choice.has(key) ? s.choice.delete(key) : s.choice.add(key); }
+  else { const had = s.choice.has(key); s.choice.clear(); if (!had) s.choice.add(key); }
+  if (s.choice.size) { s.accepted = false; s.deferred = false; }
+  paint(); saveDraft();
+  if (adv && !q.multi && s.choice.size) advance();
+}
+function takeDefault(q) {
+  const opts = q.options || [];
+  const ri = opts.findIndex((o) => o.recommended);
+  if (ri >= 0) { toggle(q, optKey(opts[ri], ri), true); return; }
+  if (q.recommendation) { setAccepted(q, true, true); return; }
+  focusWrite();
+}
+function acceptAll() {
+  for (const q of round.questions) if (!answered(q) && q.recommendation) S(q).accepted = true;
+  paint(); saveDraft();
+}
+function focusWrite() {
+  const ta = $("#q" + cursor + " textarea"); if (!ta) return;
+  ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+
+/* ------------------------------------------------------------ paint */
+function stateText(q) {
+  const s = S(q), t = (s.text || "").trim(), st = skin.st;
+  if (s.deferred) return st.deferred;
+  if (s.accepted) return t ? st.acceptedNote : st.accepted;
+  if (s.choice.size) { const k = [...s.choice].map((c) => skin.enumKey(c)).join(" "); return t ? st.choseNote(k) : st.chose(k); }
+  if (t) return st.answered;
+  return st.open;
+}
+function paint() {
+  let done = 0;
+  round.questions.forEach((q, i) => {
+    const s = S(q), sec = $("#q" + i), link = $("#toc").children[i];
+    const isDone = answered(q); if (isDone) done++;
+    const st = $(".state", sec);
+    st.className = "state" + (s.deferred ? " deferred" : isDone ? " done" : "");
+    st.textContent = stateText(q);
+    const acc = $("button.accept", sec);
+    if (acc) { acc.classList.toggle("on", s.accepted); acc.innerHTML = (s.accepted ? skin.accepted : skin.accept) + " <kbd>a</kbd>"; }
+    const dfr = $("button.defer", sec);
+    dfr.classList.toggle("on", s.deferred);
+    dfr.innerHTML = (s.deferred ? skin.deferred : skin.defer) + " <kbd>d</kbd>";
+    $$(".opt", sec).forEach((li, oi) => {
+      const on = s.choice.has(optKey(q.options[oi], oi));
+      li.classList.toggle("sel", on); li.setAttribute("aria-checked", on);
+      $(".box", li).innerHTML = on ? "&#9632;" : "&#9633;";
+    });
+    link.className = s.deferred ? "deferred" : isDone ? "done" : "";
+    if (i === cursor) link.classList.add("active");
+    $(".m", link).innerHTML = s.deferred ? "&#8230;" : isDone ? "&#10003;" : "";
+  });
+  const n = round.questions.length;
+  $("#count").textContent = done + " / " + n;
+  $("#meter").style.width = (n ? (done / n * 100) : 0) + "%";
+  $("#remaining").textContent = skin.remaining(n - done);
+  $("#acceptAll").classList.toggle("hidden", !round.questions.some((q) => !answered(q) && q.recommendation));
+}
+function paintCursor() {
+  $$(".q").forEach((c, i) => c.classList.toggle("cursor", i === cursor));
+  $$("#toc a").forEach((a, i) => a.classList.toggle("active", i === cursor));
+}
+function go(i) {
+  cursor = Math.max(0, Math.min(round.questions.length - 1, i));
+  const sec = $("#q" + cursor);
+  if (sec) {
+    const r = sec.getBoundingClientRect();
+    const top = 4.5 * 16, bottom = innerHeight - 9.5 * 16;
+    if (r.top < top || r.bottom > bottom) sec.scrollIntoView({ behavior: "smooth", block: r.height > bottom - top ? "start" : "center" });
+    if (document.activeElement && document.activeElement.tagName === "TEXTAREA") document.activeElement.blur();
+  }
+  paint(); paintCursor();
+}
+function nextOpen(dir) {
+  const n = round.questions.length;
+  for (let k = 1; k <= n; k++) { const j = (cursor + dir * k + n * k) % n; if (!answered(round.questions[j])) { go(j); return; } }
+}
+
+/* ------------------------------------------------------------ keyboard */
+const helpOpen = () => !$("#help").classList.contains("hidden");
+function toggleHelp(on) { $("#help").classList.toggle("hidden", on === undefined ? !$("#help").classList.contains("hidden") : !on); }
+
+document.addEventListener("keydown", (e) => {
+  if (helpOpen()) { if (e.key === "Escape" || e.key === "?") { e.preventDefault(); toggleHelp(false); } return; }
+  const mod = e.metaKey || e.ctrlKey;
+  const typing = /^(TEXTAREA|INPUT|SELECT)$/.test(document.activeElement.tagName);
+  if (!typing && (e.key === "t" || e.key === "T") && !mod) { e.preventDefault(); cycleSkin(e.key === "T" ? -1 : 1); return; }
+  if (!round || $("#app").classList.contains("hidden")) return;
+
+  if (mod && e.key === "Enter") { e.preventDefault(); submit(); return; }
+
+  if (typing) {
+    if (document.activeElement.tagName === "SELECT") { if (e.key === "Escape") document.activeElement.blur(); return; }
+    const inNote = document.activeElement.id === "note";
+    if (e.key === "Escape") { document.activeElement.blur(); paintCursor(); return; }
+    if (e.key === "Enter" && !e.shiftKey && !e.altKey) {
+      e.preventDefault(); document.activeElement.blur();
+      if (!inNote) advance(); else paintCursor();
+      return;
+    }
+    if (e.ctrlKey && (e.key === "j" || e.key === "k")) {
+      e.preventDefault(); if (inNote) return;
+      go(cursor + (e.key === "j" ? 1 : -1)); focusWrite(); return;
+    }
+    return;
+  }
+
+  const q = round.questions[cursor];
+  const opts = q.options || [];
+  switch (e.key) {
+    case "j": case "ArrowDown": e.preventDefault(); go(cursor + 1); break;
+    case "k": case "ArrowUp":   e.preventDefault(); go(cursor - 1); break;
+    case "n": e.preventDefault(); nextOpen(1); break;
+    case "p": e.preventDefault(); nextOpen(-1); break;
+    case "Home": e.preventDefault(); go(0); break;
+    case "End":  e.preventDefault(); go(round.questions.length - 1); break;
+    case "Enter": e.preventDefault(); takeDefault(q); break;
+    case "a": e.preventDefault(); if (q.recommendation) setAccepted(q, !S(q).accepted, true); break;
+    case "A": e.preventDefault(); acceptAll(); break;
+    case "d": e.preventDefault(); setDeferred(q, !S(q).deferred, true); break;
+    case "e": case "i": case "/": e.preventDefault(); focusWrite(); break;
+    case "?": e.preventDefault(); toggleHelp(true); break;
+    default:
+      if (/^[1-9]$/.test(e.key)) { const oi = Number(e.key) - 1; if (opts[oi]) { e.preventDefault(); toggle(q, optKey(opts[oi], oi), true); } }
+  }
+});
+$("#helpBtn").onclick = () => toggleHelp(true);
+$("#help").onclick = (e) => { if (e.target === $("#help")) toggleHelp(false); };
+$("#acceptAll").onclick = acceptAll;
+$("#send").onclick = () => submit();
+$("#skinSel").onchange = (e) => { setSkin(e.target.value); e.target.blur(); };
+$("#schemeSel").onchange = (e) => { applyScheme(e.target.value); e.target.blur(); };
+
+/* ------------------------------------------------------------ submit */
+async function submit() {
+  if (sending || !round) return;
+  const missing = round.questions.filter((q) => !answered(q));
+  const b = $("#send");
+  if (missing.length) {
+    const first = round.questions.findIndex((q) => !answered(q));
+    go(first);
+    b.innerHTML = missing.length + " open &mdash; send anyway?";
+    b.classList.add("warn");
+    if (!b.dataset.warned) {
+      b.dataset.warned = "1";
+      setTimeout(() => { b.innerHTML = skin.send; b.classList.remove("warn"); delete b.dataset.warned; }, 4000);
+      return;
+    }
+  }
+  sending = true;
+  const answers = round.questions.map((q) => {
+    const s = S(q), choice = [...s.choice], text = (s.text || "").trim();
+    let status = "unanswered";
+    if (s.deferred) status = "deferred";
+    else if (choice.length) status = "chose";
+    else if (s.accepted) status = text ? "accepted_with_note" : "accepted";
+    else if (text) status = "answered";
+    return { id: q.id, title: q.title, status, choice, text, recommendation_accepted: s.accepted };
+  });
+  try {
+    const r = await fetch("/submit", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ token: TOKEN, roundId: round.roundId, answers, note: $("#note").value.trim() }),
+    });
+    if (!r.ok) throw new Error(await r.text());
+    try { localStorage.removeItem(draftKey()); } catch {}
+    $("#app").classList.add("hidden"); $("#sent").classList.remove("hidden");
+    round = null; state = new Map(); $("#note").value = "";
+    b.innerHTML = skin.send; b.classList.remove("warn"); delete b.dataset.warned;
+    setTimeout(() => { if (!round) { $("#sent").classList.add("hidden"); $("#waiting").classList.remove("hidden"); } }, 2200);
+  } catch (err) {
+    b.innerHTML = "send failed &mdash; retry"; b.classList.add("warn");
+    console.error(err);
+  }
+  sending = false;
+}
+
+/* ------------------------------------------------------------ live wire */
+let es = null;
+function connect() {
+  es = new EventSource("/events?t=" + encodeURIComponent(TOKEN));
+  es.addEventListener("round", (ev) => {
+    round = JSON.parse(ev.data);
+    state = new Map(); sending = false;
+    loadDraft(); render();
+    document.title = (round.topic ? round.topic + " — " : "") + "Round " + (round.round ?? 1);
+    window.focus();
+  });
+  es.addEventListener("cancel", (ev) => {
+    round = null;
+    $("#app").classList.add("hidden"); $("#sent").classList.add("hidden");
+    $("#waiting").classList.remove("hidden");
+    $("#waitmsg").textContent = (JSON.parse(ev.data || "{}").reason) || "Round withdrawn by Claude.";
+    $("#waitmsg").dataset.custom = "1";
+  });
+  es.addEventListener("bye", (ev) => {
+    const d = JSON.parse(ev.data || "{}");
+    es.close(); round = null; clearDrafts();
+    $("#app").classList.add("hidden"); $("#sent").classList.add("hidden"); $("#waiting").classList.add("hidden");
+    $("#byeMsg").textContent = d.reason || "";
+    $("#byeTiny").textContent = skin.closing;
+    $("#bye").classList.remove("hidden");
+    document.title = "Grilling complete";
+    if (d.autoClose === false) { $("#byeTiny").textContent = skin.closeHint; return; }
+    setTimeout(() => {
+      window.close();
+      setTimeout(() => { $("#byeTiny").textContent = skin.closeHint; }, 800);
+    }, 1800);
+  });
+  es.onerror = () => { /* EventSource auto-reconnects */ };
+}
+
+/* ------------------------------------------------------------ boot */
+/* precedence: ?skin=&scheme= in the URL → what this browser last chose → the server's GRILL_THEME / GRILL_SCHEME */
+const Q = new URLSearchParams(location.search);
+applyScheme(Q.get("scheme") || store.get("grill:scheme") || H.dataset.schemePref || "auto", { persist: false });
+setSkin(Q.get("skin") || store.get("grill:skin") || H.dataset.skin || "latex", { persist: false });
+connect();
+window.addEventListener("beforeunload", () => {
+  if (round) navigator.sendBeacon("/closing", JSON.stringify({ token: TOKEN, roundId: round.roundId }));
+});
+</script>
+</body>
+</html>

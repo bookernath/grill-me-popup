@@ -1,0 +1,14 @@
+{
+  "name": "bookernath",
+  "owner": { "name": "Nathan Booker", "url": "https://github.com/bookernath" },
+  "metadata": { "description": "Nathan Booker's Claude Code plugins" },
+  "plugins": [
+    {
+      "name": "grill-me-popup",
+      "source": "./",
+      "description": "Answer a whole round of grill-me questions in a browser popup instead of the terminal.",
+      "version": "1.1.0",
+      "category": "productivity"
+    }
+  ]
+}

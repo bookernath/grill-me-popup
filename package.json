@@ -1,0 +1,17 @@
+{
+  "name": "grill-me-popup",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Answer a whole round of grill-me questions in a browser popup instead of the terminal. Zero-dependency MCP server + Claude Code skill.",
+  "license": "MIT",
+  "repository": "github:bookernath/grill-me-popup",
+  "bin": { "grill-me-popup": "./server.mjs" },
+  "files": ["server.mjs", "ui-server.mjs", "ui.html", "vendor", "skills", ".mcp.json", ".claude-plugin"],
+  "scripts": {
+    "test": "node test/e2e.mjs",
+    "preview": "node test/preview.mjs",
+    "vendor": "sh scripts/vendor.sh"
+  },
+  "engines": { "node": ">=20" }
+}
